@@ -21,12 +21,12 @@ public class SmartphoneController {
 	@Autowired
 	private SmartphonesServices SmartphoneServices;
 	
-	@GetMapping("/productos")
+	@GetMapping("/smartphones")
 	public List<Smartphones> getAll(){
 		return SmartphoneServices.getAll();
 	}
 
-	@GetMapping("/productos/{id}")
+	@GetMapping("/smartphones/{id}")
 	public ResponseEntity<?> read(@PathVariable Long id) {
 		
 		if(id > 500) {
