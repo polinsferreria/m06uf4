@@ -5,76 +5,78 @@ import java.util.List;
 import java.util.Optional;
 import java.util.TreeMap;
 
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.PolNebot.smartphone.backend.business.model.Smartphones;
 import com.PolNebot.smartphone.backend.business.services.SmartphonesServices;
+import com.PolNebot.smartphone.backend.integration.repositores.SmartphonesRepository;
 
 
 @Service
 public class SmartphonesServicesImpl implements SmartphonesServices {
 
-	private final TreeMap<Long, Smartphones> SMARTPHONES = new TreeMap<>();
+	//private final TreeMap<Long, Smartphones> SMARTPHONES = new TreeMap<>();
 	
-	public SmartphonesServicesImpl() {
-		init();
-	}
+	@Autowired
+	private SmartphonesRepository smartphonesRepository;
 	
 	@Override
+	@Transactional
 	public Long create(Smartphones smartphones) {
 		
-		Long id = SMARTPHONES.lastKey() + 1;
+		if(smartphones.getId() != null) {
+			throw new IllegalStateException("No se puede crear un producto con código not null");
+		}
 		
+		Long id = System.currentTimeMillis();
 		smartphones.setId(id);
 		
-		SMARTPHONES.put(smartphones.getId(), smartphones);
+		smartphonesRepository.save(smartphones);
 		
 		return id;
 	}
 
 	@Override
-	public Optional<Smartphones> read(Long id) {
-		return Optional.ofNullable(SMARTPHONES.get(id));
+	public Optional<Smartphones> read(Long id) {	
+		return smartphonesRepository.findById(id);
+	}
+
+	@Override
+	@Transactional
+	public void update(Smartphones smartphones) {
+		
+		Long id = smartphones.getId();
+		
+		if(id == null) {
+			throw new IllegalStateException("No se puede actualizar un producto con código not null");
+		}
+		
+		boolean existe = smartphonesRepository.existsById(id);
+		
+		if(!existe) {
+			throw new IllegalStateException("El producto con código " + id + " no existe. No se puede actualizar.");
+		}
+		
+		smartphonesRepository.save(smartphones);
+	}
+
+	@Override
+	@Transactional
+	public void delete(Long id) {
+		smartphonesRepository.deleteById(id);
 	}
 
 	@Override
 	public List<Smartphones> getAll() {
-		return new ArrayList<>(SMARTPHONES.values());
+		return smartphonesRepository.findAll();
 	}
-	
-	// ***************************************************************
-	//
-	// Private Methods
-	//
-	// ***************************************************************
 
-	private void init() {
-		
-		Smartphones p1 = new Smartphones();
-		Smartphones p2 = new Smartphones();
-		Smartphones p3 = new Smartphones();
-		
-		p1.setId(10L);
-		p1.setNombre("Samsung Galaxy S21 Ultra");
-		p1.setMarca("Samsung");
-		p1.setPrecio(780.50);
-		p1.setTamañoPulgadas(6.8);
-		
-		p2.setId(11L);
-		p2.setNombre("OnePlus 9 Pro");
-		p2.setMarca("OnePlus");
-		p2.setPrecio(700.0);
-		p2.setTamañoPulgadas(6.7);
-		
-		p3.setId(12L);
-		p3.setNombre("Google Pixel 6 Pro");
-		p3.setMarca("Google");
-		p3.setPrecio(390.0);
-		p3.setTamañoPulgadas(6.7);
-		
-		SMARTPHONES.put(p1.getId(), p1);
-		SMARTPHONES.put(p2.getId(), p2);
-		SMARTPHONES.put(p3.getId(), p3);
-		
+	@Override
+	public List<Smartphones> getBetweenPriceRange(double min, double max) {
+		return smartphonesRepository.findByPrecioBetween(min, max);
 	}
+
 }

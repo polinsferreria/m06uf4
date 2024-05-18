@@ -51,7 +51,17 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>com.rauxasoft</groupId>
+			<artifactId>gestionproductos</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>hibernatePrueba1</groupId>
+			<artifactId>hibernatePrueba1</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>

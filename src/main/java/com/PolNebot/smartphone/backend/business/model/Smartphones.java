@@ -3,14 +3,28 @@ package com.PolNebot.smartphone.backend.business.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="SMARTPHONES")
 public class Smartphones implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@Id
 	private Long id;
+	
+	@Enumerated(EnumType.STRING)
+	private Familia familia;
+	
 	private String nombre;
 	private String marca;
 	private Double precio;
-	private Double tamañoPulgadas;
+	private boolean descatalogado;
+	private Double pulgadas;
 	
 	
 	
@@ -24,7 +38,7 @@ public class Smartphones implements Serializable {
 		this.nombre = nombre;
 		this.marca = marca;
 		this.precio = precio;
-		this.tamañoPulgadas = tamañoPulgadas;
+		this.pulgadas = tamañoPulgadas;
 	}
 	
 	public Long getId() {
@@ -52,11 +66,20 @@ public class Smartphones implements Serializable {
 		this.precio = precio;
 	}
 	public Double getTamañoPulgadas() {
-		return tamañoPulgadas;
+		return pulgadas;
 	}
 	public void setTamañoPulgadas(Double tamañoPulgadas) {
-		this.tamañoPulgadas = tamañoPulgadas;
+		this.pulgadas = tamañoPulgadas;
 	}
+	
+	public Familia getFamilia() {
+		return familia;
+	}
+
+	public void setFamilia(Familia familia) {
+		this.familia = familia;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -76,7 +99,7 @@ public class Smartphones implements Serializable {
 	@Override
 	public String toString() {
 		return "Smartphones [id=" + id + ", nombre=" + nombre + ", marca=" + marca + ", precio=" + precio
-				+ ", tamañoPulgadas=" + tamañoPulgadas + "]";
+				+ ", tamañoPulgadas=" + pulgadas + "]";
 	}
 	
 	
