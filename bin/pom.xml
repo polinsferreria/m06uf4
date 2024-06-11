@@ -9,11 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	
-	<groupId>com.PolNebot</groupId>
-	<artifactId>smartphone</artifactId>
+	<groupId>com.PolNebot.smartphones</groupId>
+	<artifactId>m06uf4_PolNebot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>smartphone</name>
-	<description>Proyecto de demostración para Spring Boot con API REST de Moviles</description>
+	<name>m06uf4_PolNebot</name>
+	<description>m06uf4_PolNebot</description>
 	
 	<properties>
 		<java.version>17</java.version>
@@ -51,22 +51,17 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-		
-		<!-- Base de datos en memoria H2 -->
-		
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		
-		<!-- Spring Data (JPA) -->
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>		
-		</dependency>
 
+		<dependency>
+			<groupId>com.rauxasoft</groupId>
+			<artifactId>gestionproductos</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>hibernatePrueba1</groupId>
+			<artifactId>hibernatePrueba1</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>

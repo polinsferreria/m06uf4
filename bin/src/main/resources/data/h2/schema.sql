@@ -1,6 +1,6 @@
 -- https://www.h2database.com/html/grammar.html
 
-CREATE TABLE SMARTPHONE (
+CREATE TABLE SMARTPHONES (
 
 	id				BIGINT			NOT NULL,
 	nombre			VARCHAR(150)	,
